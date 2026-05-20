@@ -1,0 +1,413 @@
+// Auto-generated: inlined EEC Live Attendance HTML so the dashboard can open it as a blob URL even in the bundled standalone.
+window.EEC_LIVE_ATTENDANCE_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Curriculum Governance Members Attendance Tracker</title>
+<style>
+  :root{
+    --ink:#16243a; --paper:#f4f1ea; --card:#fffdf8; --line:#cdc6b5;
+    --navy:#1f3864; --navy-soft:#2e75b6; --present:#1f7a4d; --absent:#9aa0a6;
+    --accent:#b5472d; --shadow:0 1px 0 rgba(0,0,0,.04),0 8px 24px -16px rgba(31,56,100,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    background:var(--paper);color:var(--ink);
+    background-image:radial-gradient(circle at 1px 1px,rgba(31,56,100,.05) 1px,transparent 0);
+    background-size:22px 22px;line-height:1.5;padding:24px 16px 80px;
+  }
+  .wrap{max-width:860px;margin:0 auto}
+  header.top{margin-bottom:22px;border-bottom:2px solid var(--navy);padding-bottom:14px}
+  .kicker{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  h1{font-size:30px;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+  .sub{font-size:14px;color:#5b6472;margin-top:4px;font-style:italic}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 0}
+  .tab{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.06em;
+    padding:9px 16px;border:1px solid var(--line);background:var(--card);color:#4a5568;
+    cursor:pointer;border-radius:2px 2px 0 0;border-bottom:none;transition:.15s;font-weight:600}
+  .tab:hover{color:var(--navy)}
+  .tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .panel{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);
+    border-radius:0 4px 4px 4px;padding:20px;display:none}
+  .panel.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .meta{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline;
+    padding-bottom:14px;border-bottom:1px dashed var(--line);margin-bottom:6px}
+  .meta h2{font-size:20px;color:var(--navy);font-weight:700}
+  .stat{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#4a5568}
+  .stat b{font-size:17px;color:var(--ink)}
+  .quorum{font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;
+    padding:3px 10px;border-radius:999px;letter-spacing:.04em}
+  .q-met{background:#e3f1e9;color:var(--present);border:1px solid #bfe0cd}
+  .q-no{background:#f6e9e6;color:var(--accent);border:1px solid #e6c9c1}
+  .group-label{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:#8a8675;margin:18px 0 4px;padding-bottom:3px;
+    border-bottom:1px solid #e7e2d4}
+  ul{list-style:none}
+  li.row{display:flex;align-items:center;gap:12px;padding:9px 6px;border-bottom:1px solid #efece1}
+  li.row:last-child{border-bottom:none}
+  .chk{flex:none;width:26px;height:26px;border:2px solid var(--line);border-radius:5px;
+    cursor:pointer;display:grid;place-items:center;background:#fff;transition:.12s;font-size:15px}
+  .chk:hover{border-color:var(--navy-soft)}
+  .row.present .chk{background:var(--present);border-color:var(--present);color:#fff}
+  .row.present .chk::after{content:"\2713"}
+  .name{flex:1;font-size:15.5px}
+  .row.present .name{font-weight:600}
+  .row:not(.present):not(.unset) .name{color:var(--absent)}
+  .role{font-size:11.5px;color:#8a8675;font-family:ui-monospace,Menlo,monospace;
+    font-style:normal;display:block;margin-top:1px}
+  .nv{font-size:10px;color:#8a8675;border:1px solid var(--line);border-radius:3px;
+    padding:1px 5px;font-family:ui-monospace,Menlo,monospace;flex:none}
+  .del{flex:none;border:none;background:none;color:#c4bca8;cursor:pointer;font-size:18px;
+    line-height:1;padding:4px 6px;border-radius:4px}
+  .del:hover{color:var(--accent);background:#f6e9e6}
+  .addbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;padding-top:16px;
+    border-top:1px dashed var(--line)}
+  .addbar input,.addbar select{font-family:inherit;font-size:14px;padding:9px 11px;
+    border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+  .addbar input{flex:1;min-width:150px}
+  .addbar select{flex:none}
+  button.btn{font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;
+    letter-spacing:.05em;padding:9px 16px;border:1px solid var(--navy);background:var(--navy);
+    color:#fff;border-radius:4px;cursor:pointer;transition:.15s}
+  button.btn:hover{background:#162a4d}
+  button.btn.ghost{background:transparent;color:var(--navy)}
+  button.btn.ghost:hover{background:#eef1f7}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  footer{max-width:860px;margin:26px auto 0;font-size:12px;color:#8a8675;
+    font-family:ui-monospace,Menlo,monospace;text-align:center;line-height:1.7}
+  @media(max-width:560px){h1{font-size:24px}.tab{flex:1;text-align:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">Icahn School of Medicine at Mount Sinai &middot; ASCEND</div>
+    <h1>Curriculum Governance Members Attendance Tracker</h1>
+    <div class="sub">Tap a box to mark present. Add members at the bottom of each panel.</div>
+    <div style="margin-top:12px;padding:9px 13px;background:#f6e9e6;border:1px solid #e6c9c1;border-radius:4px;font-size:13px;color:#b5472d;font-family:ui-monospace,Menlo,monospace">
+      &#9888; This shared version holds data in memory only. <b>Export the record before closing or refreshing</b> &mdash; checks are not saved.
+    </div>
+  </header>
+  <div class="tabs" id="tabs"></div>
+  <div id="panels"></div>
+</div>
+<footer>
+  Quorum = majority of voting members. Counts reflect <b>voting members only</b>.<br>
+  Attendance persists per device &middot; use "New meeting" to clear all checks.
+</footer>
+
+<script>
+const SEED = {
+  EEC:{name:"Executive Education Committee",quorum:7,people:[
+    ["Michelle Francis, MD","EEC General Faculty Co-Chair (outgoing)",1],
+    ["Rainier Soriano, MD","Administrative Co-Chair — Sr. Assoc. Dean, Curricular Affairs",0],
+    ["Arvind Kamthan, MD","General Faculty — Hematology & Medical Oncology",1],
+    ["Brian Rice, MD","General Faculty — Hospital Medicine",1],
+    ["Ganesh Gunasekaran, MD","General Faculty — Section Chief, Hepatobiliary Surgery",1],
+    ["Kyunghyun Lee, MD","General Faculty — Hospital Medicine",1],
+    ["Richard Stern, MD","General Faculty — Radiology, Medical Education",1],
+    ["Sreekala Raghavan, MD","General Faculty — General Internal Medicine",1],
+    ["TBA — General Faculty A","General Faculty (TBA)",1],
+    ["TBA — General Faculty B","General Faculty (TBA)",1],
+    ["Alan Zhang","Student Representative, Phase 2",1],
+    ["Jamie Frost","Student Representative, Phase 3",1],
+    ["MSTP Student — TBA","Student Representative, MSTP",1],
+    ["Phase 1 Student — TBA","Student Representative, Phase 1",1],
+    ["Brad Rosenberg, MD, PhD","MSTP Program Representative",0],
+    ["Craig Katz, MD","Career and Professional Development Advising Representative",0],
+    ["Cynthia Abraham, MD","Module Director Representative (Phase 1)",0],
+    ["Deanna Chieco, MD","CCS Faculty Co-Chair",0],
+    ["Eve Merrill, MD","Clerkship Director Representative (Phase 2/3)",0],
+    ["Jacob Shreffler, PhD","AES Faculty Co-Chair",0],
+    ["Leona Hess, PhD","CIS Faculty Co-Chair",0],
+    ["Tonia Kim, MD","PCCS Faculty Co-Chair",0],
+    ["Vannita Simma-Chiang, MD","Specialty Advising Representative",0]
+  ]},
+  PCCS:{name:"Pre-Clerkship Curriculum Subcommittee",quorum:12,people:[
+    ["Staci Leisman, MD","Administrative Co-Chair — Director of Pre-Clerkship Curriculum",0],
+    ["Tonia Kim, MD","PCCS Faculty Co-Chair (Non-voting on EEC)",1],
+    ["Alexandros Polydorides, MD, PhD","Phase 1 Module Director — Pathology",1],
+    ["Amanda Krausert, MD","Phase 1 Module Director — Cardiology",1],
+    ["Anna Pace, MD","Phase 1 Module Director - Neuroscience",1],
+    ["Cynthia Abraham, MD","Phase 1 Module Director – GU-SRH",1],
+    ["Daniel Caplivski, MD","Phase 1 Module Director - FIM",1],
+    ["David Bechhofer, PhD","Phase 1 Module Director — MCG",1],
+    ["Hannah Levavi, MD","Phase 1 Module Director - Hematology",1],
+    ["John Paulsen, PhD","Phase 1 Module Director - Gastroenterology",1],
+    ["Laura Stein, MD","Phase 1 Module Director - Neuroscience",1],
+    ["Margrit Wiesendanger, MD, PhD","Phase 1 Module Director - FIM",1],
+    ["Maria Skamagas, MD","Phase 1 Module Director - Endocrinology",1],
+    ["Mary Beasley, MD","Phase 1 Module Director - Pulmonary",1],
+    ["Matthew Tomey, MD","Phase 1 Module Director - Cardiology",1],
+    ["Micaela Bayard, MD","Phase 1 Module Director - MSK",1],
+    ["Oren Cohen, MD","Phase 1 Module Director – Pulmonary",1],
+    ["Roberto Posada, MD","Phase 1 Module Director - FIM",1],
+    ["Simone Tomasi, MD","Phase 1 Module Director – Behavioral Science",1],
+    ["Soo Kim, MD","Phase 1 Module Director - MSK",1],
+    ["Steven Itzkowitz, MD","Phase 1 Module Director - Gastroenterology",1],
+    ["Tamara Kalir, MD, PhD","Phase 1 Module Director – GU-SRH",1],
+    ["Trevor Pour, MD","Phase 1 Module Director - Anatomy",1],
+    ["Nina Faynshtayn","Student Representative, Phase 1 (Phase 1)",1],
+    ["Rachael Volkman","Student Representative, Phase 1 (Phase 1)",1],
+    ["Christopher Strother, MD","Director of Clinical Competency",0],
+    ["Horatio Holzer, MD","Director of Clinical Curriculum",0],
+    ["Jacob Shreffler, PhD","Office of Assessment & Evaluation Representative",0],
+    ["Ravishankar Ramaswamy, MD","Director of Integration & Transitions",0]
+  ]},
+  CCS:{name:"Clinical Curriculum Subcommittee",quorum:12,people:[
+    ["Deanna Chieco, MD*","CCS Faculty Co-Chair",1],
+    ["Horatio Holzer, MD","Director of Clinical Curriculum",0],
+    ["Adam Korayem, MD","Acting Internship Director – Surgical Subspecialty",1],
+    ["Andrea Lendaris, MD","Associate Clerkship Director - Neurology",1],
+    ["Chandni Pawar, MD","Associate Clerkship Director – Emergency Medicine",1],
+    ["Cynthia Abraham, MD","Clerkship Director – OB-Gyn",1],
+    ["Dessi Tsevdos, MD","Associate Clerkship Director – Pediatrics",1],
+    ["Eric Barna, MD","Acting Internship Director - Medicine",1],
+    ["Eve Merrill, MD","Clerkship Director – Inpatient Medicine",1],
+    ["Harish Jasti, MD","Co-Clerkship Director – ACG",1],
+    ["Jamie Edelstein, MD","Clinical Site Education Representative (MSHS)",1],
+    ["Jan Fune, MD","Acting Internship Director - Pediatrics",1],
+    ["Katherine Chen, MD","Clerkship Director – OB-Gyn",1],
+    ["Laura Belland, MD","Clerkship Director – Palliative Care",1],
+    ["Matthew Swan, MD","Clerkship Director - Neurology",1],
+    ["Mercedes Perez-Rodriguez, MD","Clerkship Director - Psychiatry",1],
+    ["Michael Chietero, MD","Co-Clerkship Director – Surgery-Anesthesiology",1],
+    ["Reham Shaaban, MD","Clinical Site Education Representative  (Affiliate)",1],
+    ["Rex Hermansen, MD","Associate Clerkship Director – Inpatient Medicine",1],
+    ["Scott Nguyen, MD","Acting Internship Director – General Surgery",1],
+    ["Shefali Trivedi, MD","Clerkship Director – Emergency Medicine",1],
+    ["Susan Lerner, MD","Co-Clerkship Director – Surgery-Anesthesiology",1],
+    ["Yael Kufert, MD","Associate Clerkship Director - Psychiatry",1],
+    ["Emma Breber","Student Representative, Phase 2/3",1],
+    ["Michael Lemonick","Student Representative, Phase 2/3",1],
+    ["Christopher Strother, MD","Director of Clinical Competency",0],
+    ["Jacob Shreffler, PhD","Office of Assessment & Evaluation Representative",0],
+    ["Ravishankar Ramaswamy, MD","Director of Integration & Transitions",0],
+    ["Staci Leisman, MD","Director of Pre-Clerkship Curriculum",0],
+    ["Vasundhara Singh, MD","Director of Medical Student Electives",0]
+  ]},
+  CIS:{name:"Curriculum Integration Subcommittee",quorum:8,people:[
+    ["Leona Hess, PhD","CIS Faculty Co-Chair (Non-voting on EEC)",1],
+    ["Ravishankar Ramaswamy, MD","Director of Integration & Transitions",0],
+    ["Aveena Kochar, MD","AOC Lead — Healthcare Delivery Science",1],
+    ["Bess Storch, MD","POM 3 Director",1],
+    ["Cynthia Abraham, MD","Thread Lead — Embryology",1],
+    ["David Portnoy, MD","AOC Lead — Leadership & Professional Identity",1],
+    ["Jacqueline Sheehan, MD","Thread Lead — Communication Skills",1],
+    ["Joanne Hojsak, MD","POM 1 Director",1],
+    ["Krishna Chokshi, MD","Thread Lead — Medical Ethics",1],
+    ["Lili Chan, MD","Thread Lead — Artificial Intelligence",1],
+    ["Maaike Van Gerwen, MD","AOC Lead — Scientific & Scholarly Discovery",1],
+    ["Mike Herscher, MD","POM 2 Director",1],
+    ["TBA — Nutrition","Thread Lead — Nutrition",1],
+    ["Alvira Tyagi","Student Representative, Phase 1/2 or 2/3 (M1)",1],
+    ["Maria Hernandez","Student Representative, Phase 1/2 or 2/3 (M1)",1],
+    ["Naveen Abraham","Student Representative, Phase 1/2 (M1)",1],
+    ["Christopher Strother, MD","Director of Clinical Competency",0],
+    ["Jacob Shreffler, PhD","Office of Assessment & Evaluation Representative",0],
+    ["Mary Rojas, PhD","Director, Medical Student Research Office",0]
+  ]},
+  AES:{name:"Assessment & Evaluation Subcommittee",quorum:3,people:[
+    ["Jacob Shreffler, PhD","Administrative Co-Chair",0],
+    ["TBA","Faculty Co-Chair",1],
+    ["Christopher Strother, MD","Director of Clinical Competency",1],
+    ["Ashwin Kulshrestha","Student Representative",1],
+    ["Lev Sandler","Student Representative",1],
+    ["TBA — Phase 2 Student","Student Representative",1],
+    ["Varun Devraj","Student Representative",1]
+  ]}
+};
+const KEY="eec_attendance_v5";
+function lastName(n){
+  if(/^TBA/i.test(n)||/Not filled/i.test(n)||/^Phase \d+ Student/i.test(n)) return null;
+  let s=n.replace(/,\s*(MD|PhD|MEd|DO|MHPE|MS|MPH|RN|EdD)\b.*$/i,"").trim();
+  let parts=s.split(/\s+/);
+  return (parts[parts.length-1]||"").toLowerCase();
+}
+function sortPeople(arr){
+  return arr.map((p,idx)=>({p,idx})).sort((a,b)=>{
+    const av=a.p.voting?1:0, bv=b.p.voting?1:0;
+    if(av!==bv) return bv-av;
+    const la=lastName(a.p.name), lb=lastName(b.p.name);
+    if(la===null&&lb===null) return a.idx-b.idx;
+    if(la===null) return 1;
+    if(lb===null) return -1;
+    return la<lb?-1:la>lb?1:a.idx-b.idx;
+  }).map(o=>o.p);
+}
+for(const k in SEED){
+  SEED[k].people = sortPeople(
+    SEED[k].people.map(p=>({name:p[0],role:p[1],voting:p[2]}))
+  ).map(p=>[p.name,p.role,p.voting]);
+}
+let state=null;
+if(!state){
+  state={};
+  for(const k in SEED){
+    state[k]={name:SEED[k].name,quorum:SEED[k].quorum,
+      people:SEED[k].people.map(p=>({name:p[0],role:p[1],voting:p[2],present:false}))};
+  }
+}
+function save(){/* in-memory only: export before closing or refreshing */}
+let active=Object.keys(state)[0];
+
+const tabsEl=document.getElementById("tabs");
+const panelsEl=document.getElementById("panels");
+
+function render(){
+  tabsEl.innerHTML="";panelsEl.innerHTML="";
+  for(const key in state){
+    const t=document.createElement("div");
+    t.className="tab"+(key===active?" active":"");
+    t.textContent=key;
+    t.onclick=()=>{active=key;render()};
+    tabsEl.appendChild(t);
+
+    const c=state[key];
+    const panel=document.createElement("div");
+    panel.className="panel"+(key===active?" active":"");
+
+    const votingTotal=c.people.filter(p=>p.voting).length;
+    const votingPresent=c.people.filter(p=>p.voting&&p.present).length;
+    const allPresent=c.people.filter(p=>p.present).length;
+    const met=votingPresent>=c.quorum;
+
+    const meta=document.createElement("div");
+    meta.className="meta";
+    meta.innerHTML=
+      '<h2>'+c.name+'</h2>'+
+      '<span class="stat">Voting present <b>'+votingPresent+'</b> / '+votingTotal+'</span>'+
+      '<span class="stat">All present <b>'+allPresent+'</b> / '+c.people.length+'</span>'+
+      '<span class="stat">Quorum needs <b>'+c.quorum+'</b></span>'+
+      '<span class="quorum '+(met?'q-met':'q-no')+'">'+(met?'QUORUM MET':'QUORUM NOT MET')+'</span>';
+    panel.appendChild(meta);
+
+    const ul=document.createElement("ul");
+    let lastGroup=null;
+    c.people.forEach((p,i)=>{
+      const g=p.voting?"Voting members":"Non-voting / ex officio";
+      if(g!==lastGroup){
+        const gl=document.createElement("div");
+        gl.className="group-label";gl.textContent=g;
+        ul.appendChild(gl);lastGroup=g;
+      }
+      const li=document.createElement("li");
+      li.className="row "+(p.present?"present":"unset");
+      const box=document.createElement("div");
+      box.className="chk";
+      box.onclick=()=>{p.present=!p.present;save();render()};
+      const nm=document.createElement("div");
+      nm.className="name";
+      nm.innerHTML=esc(p.name)+'<span class="role">'+esc(p.role||"")+'</span>';
+      li.appendChild(box);li.appendChild(nm);
+      if(!p.voting){const b=document.createElement("span");b.className="nv";b.textContent="non-voting";li.appendChild(b)}
+      const del=document.createElement("button");
+      del.className="del";del.innerHTML="&times;";del.title="Remove";
+      del.onclick=()=>{if(confirm("Remove "+p.name+"?")){c.people.splice(i,1);save();render()}};
+      li.appendChild(del);
+      ul.appendChild(li);
+    });
+    panel.appendChild(ul);
+
+    const add=document.createElement("div");
+    add.className="addbar";
+    add.innerHTML=
+      '<input placeholder="Full name" id="n_'+key+'">'+
+      '<input placeholder="Role / title (optional)" id="r_'+key+'">'+
+      '<select id="v_'+key+'"><option value="1">Voting</option><option value="0">Non-voting</option></select>'+
+      '<button class="btn">Add member</button>';
+    add.querySelector("button").onclick=()=>{
+      const nv=document.getElementById("n_"+key).value.trim();
+      if(!nv){return}
+      c.people.push({name:nv,role:document.getElementById("r_"+key).value.trim(),
+        voting:+document.getElementById("v_"+key).value,present:false});
+      c.people=sortPeople(c.people);
+      save();render();
+    };
+    panel.appendChild(add);
+
+    const tb=document.createElement("div");
+    tb.className="toolbar";
+    const dt=document.createElement("input");
+    dt.type="date";dt.id="d_"+key;dt.value=c.date||"";
+    dt.style.cssText="font-family:ui-monospace,Menlo,monospace;font-size:12px;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)";
+    dt.onchange=()=>{c.date=dt.value;save()};
+    const b1=document.createElement("button");
+    b1.className="btn ghost";b1.textContent="New meeting (clear checks)";
+    b1.onclick=()=>{if(confirm("Clear all attendance checks for "+key+"?")){c.people.forEach(p=>p.present=false);save();render()}};
+    const b2=document.createElement("button");
+    b2.className="btn ghost";b2.textContent="Mark all present";
+    b2.onclick=()=>{c.people.forEach(p=>p.present=true);save();render()};
+    const b3=document.createElement("button");
+    b3.className="btn";b3.textContent="Export record";
+    b3.onclick=()=>exportRecord(key);
+    tb.appendChild(dt);tb.appendChild(b1);tb.appendChild(b2);tb.appendChild(b3);
+    panel.appendChild(tb);
+
+    panelsEl.appendChild(panel);
+  }
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function exportRecord(key){
+  const c=state[key];
+  const date=c.date||new Date().toISOString().slice(0,10);
+  const vT=c.people.filter(p=>p.voting).length;
+  const vP=c.people.filter(p=>p.voting&&p.present).length;
+  const met=vP>=c.quorum;
+  const present=c.people.filter(p=>p.present);
+  const absent=c.people.filter(p=>!p.present);
+
+  let txt="";
+  txt+=c.name+"\n";
+  txt+="Attendance Record \u2014 "+date+"\n";
+  txt+="Icahn School of Medicine at Mount Sinai \u00B7 ASCEND MD Curriculum\n";
+  txt+="".padEnd(60,"=")+"\n\n";
+  txt+="Voting members present: "+vP+" of "+vT+"\n";
+  txt+="Quorum required: "+c.quorum+"\n";
+  txt+="Quorum: "+(met?"MET":"NOT MET")+"\n";
+  txt+="Total present (all): "+present.length+" of "+c.people.length+"\n\n";
+  txt+="PRESENT ("+present.length+")\n"+"".padEnd(60,"-")+"\n";
+  present.forEach(p=>{txt+="  [x] "+p.name+(p.voting?"":" (non-voting)")+" \u2014 "+(p.role||"")+"\n"});
+  txt+="\nABSENT ("+absent.length+")\n"+"".padEnd(60,"-")+"\n";
+  absent.forEach(p=>{txt+="  [ ] "+p.name+(p.voting?"":" (non-voting)")+" \u2014 "+(p.role||"")+"\n"});
+  txt+="\nGenerated "+new Date().toLocaleString()+"\n";
+
+  let csv="Name,Role,Voting,Status\n";
+  c.people.forEach(p=>{
+    const q=s=>'"'+String(s).replace(/"/g,'""')+'"';
+    csv+=[q(p.name),q(p.role||""),p.voting?"Voting":"Non-voting",p.present?"Present":"Absent"].join(",")+"\n";
+  });
+
+  const ov=document.createElement("div");
+  ov.style.cssText="position:fixed;inset:0;background:rgba(22,36,58,.55);display:grid;place-items:center;z-index:99;padding:18px";
+  ov.onclick=e=>{if(e.target===ov)ov.remove()};
+  const box=document.createElement("div");
+  box.style.cssText="background:var(--card);border:1px solid var(--line);border-radius:6px;max-width:640px;width:100%;max-height:88vh;overflow:auto;padding:20px;box-shadow:0 20px 60px -20px rgba(0,0,0,.5)";
+  box.innerHTML='<div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:4px">Attendance Record</div>'+
+    '<h2 style="color:var(--navy);font-size:19px;margin-bottom:12px">'+esc(c.name)+' \u2014 '+esc(date)+'</h2>';
+  const ta=document.createElement("textarea");
+  ta.value=txt;ta.readOnly=true;
+  ta.style.cssText="width:100%;height:300px;font-family:ui-monospace,Menlo,monospace;font-size:12px;padding:12px;border:1px solid var(--line);border-radius:4px;background:#fbfaf5;color:var(--ink);resize:vertical";
+  box.appendChild(ta);
+  const bar=document.createElement("div");
+  bar.style.cssText="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px";
+  function mkBtn(label,fn,ghost){const b=document.createElement("button");b.className="btn"+(ghost?" ghost":"");b.textContent=label;b.onclick=fn;return b}
+  function dl(name,data,mime){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:mime}));a.download=name;a.click()}
+  bar.appendChild(mkBtn("Copy text",()=>{ta.select();document.execCommand("copy");}));
+  bar.appendChild(mkBtn("Download .txt",()=>dl(key+"_attendance_"+date+".txt",txt,"text/plain"),true));
+  bar.appendChild(mkBtn("Download .csv",()=>dl(key+"_attendance_"+date+".csv",csv,"text/csv"),true));
+  bar.appendChild(mkBtn("Close",()=>ov.remove(),true));
+  box.appendChild(bar);
+  ov.appendChild(box);document.body.appendChild(ov);
+}
+render();
+
+</script>
+</body>
+</html>
+`;
