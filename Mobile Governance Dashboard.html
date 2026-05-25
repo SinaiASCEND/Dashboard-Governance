@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1480" />
+  <title>ASCEND Curriculum Governance — Mobile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root {
+      --font-serif: "Source Serif 4", Georgia, serif;
+      --font-sans: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    }
+    html, body {
+      margin: 0; padding: 0; min-height: 100vh;
+      background:
+        radial-gradient(900px 700px at 12% 0%, rgba(0,140,192,0.18), transparent 60%),
+        radial-gradient(900px 700px at 90% 100%, rgba(216,11,140,0.14), transparent 60%),
+        #0b1220;
+      font-family: var(--font-sans);
+      color: #e2e8f0;
+    }
+
+    /* Stage — phones laid out next to explainer */
+    .stage {
+      min-height: 100vh;
+      display: flex; align-items: flex-start; justify-content: center;
+      gap: 40px; padding: 56px 32px 80px;
+      flex-wrap: wrap;
+    }
+
+    /* Side info panel */
+    .panel {
+      width: 360px; flex: 0 0 auto;
+      background: rgba(17,28,46,0.65);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px; padding: 26px 26px 22px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px -20px rgba(0,0,0,0.5);
+    }
+    .panel .crest {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 5px 10px 5px 8px;
+      background: rgba(216,11,140,0.16);
+      color: #f5a8d3;
+      border: 1px solid rgba(216,11,140,0.3);
+      border-radius: 999px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .panel .crest .dot { width: 7px; height: 7px; border-radius: 50%; background: #f5a8d3; }
+    .panel h1 {
+      font-family: var(--font-serif); font-size: 28px; font-weight: 600;
+      letter-spacing: -0.02em; margin: 0 0 4px;
+      color: #f1f5f9; line-height: 1.15;
+    }
+    .panel .sub-title {
+      font-size: 12.5px; color: #94a3b8; margin: 0 0 18px;
+      letter-spacing: 0.02em;
+    }
+    .panel h3 {
+      font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #94a3b8; font-weight: 600;
+      margin: 18px 0 8px;
+    }
+    .panel p { font-size: 12.5px; color: #cbd5e1; margin: 0 0 10px; line-height: 1.6; }
+    .panel ol {
+      margin: 0 0 4px; padding: 0; list-style: none;
+      counter-reset: nav-step;
+    }
+    .panel ol li {
+      counter-increment: nav-step;
+      font-size: 12.5px; color: #cbd5e1;
+      padding: 9px 0 9px 36px;
+      border-bottom: 1px dashed rgba(255,255,255,0.07);
+      position: relative;
+      line-height: 1.5;
+    }
+    .panel ol li:last-child { border-bottom: 0; }
+    .panel ol li::before {
+      content: counter(nav-step);
+      position: absolute; left: 0; top: 9px;
+      width: 22px; height: 22px;
+      display: grid; place-items: center;
+      background: rgba(0,140,192,0.18);
+      color: #67e8f9;
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 700;
+      border-radius: 50%;
+    }
+    .panel ol li strong { color: #f1f5f9; font-weight: 600; }
+    .panel .legend {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px;
+      margin: 6px 0 0; font-size: 11.5px;
+    }
+    .panel .legend .it { display: flex; align-items: center; gap: 7px; color: #cbd5e1; }
+    .panel .legend .it .sw { width: 9px; height: 9px; border-radius: 2px; }
+    .panel .foot {
+      margin-top: 22px; padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      font-size: 11px; color: #64748b; line-height: 1.55;
+    }
+    .panel a {
+      color: #67e8f9; text-decoration: none; font-weight: 600;
+      border-bottom: 1px dotted rgba(103,232,249,0.5);
+    }
+
+    /* Phone frame (matches existing Director/Student mobile previews) */
+    .phone-col {
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+      flex: 0 0 auto;
+    }
+    .device {
+      width: 402px; height: 874px;
+      background: #000; border-radius: 56px;
+      padding: 12px;
+      position: relative;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 2px 0 1px #0b0b0b inset,
+        0 60px 120px -20px rgba(0,0,0,0.65),
+        0 30px 60px -15px rgba(0,0,0,0.55);
+    }
+    .device .notch {
+      position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+      width: 124px; height: 36px; background: #000;
+      border-radius: 999px; z-index: 50;
+      pointer-events: none;
+    }
+    .screen {
+      width: 100%; height: 100%; border-radius: 44px;
+      overflow: hidden; background: #F5F6F7;
+      position: relative;
+    }
+    /* The mobile app is mounted into #root and absolutely fills the screen */
+    #root { position: absolute; inset: 0; }
+
+    .device-caption {
+      font-size: 11px; color: #94a3b8;
+      letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .device-caption .dot { width: 6px; height: 6px; border-radius: 50%; background: #67e8f9; }
+
+    @media (max-width: 1100px) {
+      .stage { padding: 32px 16px 60px; gap: 24px; }
+      .panel { width: auto; max-width: 402px; }
+    }
+  </style>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <template id="__bundler_thumbnail" data-bg-color="#221F72">
+    <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+      <rect width="800" height="600" fill="#221F72"></rect>
+      <g transform="translate(310,130)">
+        <rect x="0" y="0" width="180" height="340" rx="32" fill="#000"></rect>
+        <rect x="8" y="8" width="164" height="324" rx="26" fill="#F5F6F7"></rect>
+        <rect x="20" y="40" width="140" height="46" rx="10" fill="#221F72"></rect>
+        <rect x="20" y="96" width="66" height="60" rx="8" fill="#fff"></rect>
+        <rect x="94" y="96" width="66" height="60" rx="8" fill="#fff"></rect>
+        <rect x="20" y="166" width="66" height="60" rx="8" fill="#fff"></rect>
+        <rect x="94" y="166" width="66" height="60" rx="8" fill="#fff"></rect>
+        <rect x="20" y="98" width="66" height="3" fill="#221F72"></rect>
+        <rect x="94" y="98" width="66" height="3" fill="#00AEEF"></rect>
+        <rect x="20" y="168" width="66" height="3" fill="#D80B8C"></rect>
+        <rect x="94" y="168" width="66" height="3" fill="#B0710A"></rect>
+      </g>
+      <text x="400" y="510" text-anchor="middle" fill="#ffffff" font-family="serif" font-size="26" font-weight="600">Governance · Mobile</text>
+      <text x="400" y="538" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="13" opacity="0.7" letter-spacing="2">ASCEND DASHBOARD</text>
+    </svg>
+  </template>
+
+  <div class="stage">
+    <div class="panel">
+      <span class="crest"><span class="dot"></span>Mobile · iPhone 14 Pro</span>
+      <h1>Governance Dashboard</h1>
+      <p class="sub-title">A reshaped mobile experience for the EEC governance app — focused on the one thing a phone user needs: getting to a meeting and its minutes fast.</p>
+
+      <h3>The flow</h3>
+      <ol>
+        <li><strong>Home</strong> — one hero button for the Office of Curricular Affairs (all meetings), plus a 2×2 grid of committees: EEC, PCCS, CCS, AES.</li>
+        <li><strong>Meetings</strong> — tap a committee to see its meetings, each row showing the date and a few agenda bullets.</li>
+        <li><strong>Meeting detail</strong> — four big buttons: Meeting Summary · Governance Actions · Operational Actions · Download Minutes.</li>
+      </ol>
+
+      <h3>Committee accents</h3>
+      <div class="legend">
+        <div class="it"><span class="sw" style="background:#221F72"></span>EEC</div>
+        <div class="it"><span class="sw" style="background:#00AEEF"></span>PCCS</div>
+        <div class="it"><span class="sw" style="background:#D80B8C"></span>CCS</div>
+        <div class="it"><span class="sw" style="background:#B0710A"></span>AES</div>
+      </div>
+
+      <div class="foot">
+        Wired to the real <em>eec-data.js</em> from the desktop dashboard: 29 EEC meetings, agenda items, motions, and action items.<br/>
+        PCCS · CCS · AES gracefully show <em>"Pending intake"</em> until those subcommittees file minutes.
+      </div>
+    </div>
+
+    <div class="phone-col">
+      <div class="device">
+        <div class="notch"></div>
+        <div class="screen">
+          <div id="root"></div>
+        </div>
+      </div>
+      <div class="device-caption">
+        <span class="dot"></span>
+        Tap any tile to explore
+      </div>
+    </div>
+  </div>
+
+  <script src="eec-data.js"></script>
+  <script src="mobile-schedules.js"></script>
+  <script src="meeting-details.js"></script>
+  <script type="text/babel" src="mobile-sections.jsx"></script>
+  <script type="text/babel" src="mobile-app.jsx"></script>
+
+  <script type="text/babel" data-presets="env,react">
+    ReactDOM.createRoot(document.getElementById("root")).render(<window.MobileApp />);
+  </script>
+</body>
+</html>
